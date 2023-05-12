@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<table class="table table-dark">
+    <thead >
+      <tr>
+        <th scope="col">S.No</th>
+        <th scope="col">Product</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quatity</th>
+        <th scope="col">Total Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in c %}
+        <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{i.product}}</td>
+            <td>₹{{i.price}}</td>
+            <td>{{i.quantity}}</td>
+            <td>{{i.total}}</td>
+          <td>
+
+        <form method="Post">
+            {% csrf_token %}
+            <input type="hidden" name="item_id" value="{{i.id}}">
+            <input class="btn btn-danger" type="submit" name="delete" value="Delete">
+        </form>
+        </td>
+        </tr>
+        {% endfor %} 
+    
+    </tbody>
+  </table>
+  <br>
+  Total: ₹{{t}}<br>
+  <a class="btn btn-secondary" href="{% url 'shoping:checkout' %}">Checkout</a>
+  &nbsp;&nbsp;&nbsp;
+  <a class="btn btn-secondary" href="{% url 'shoping:index' %}">Back/Continue</a>
+{% endblock %}
